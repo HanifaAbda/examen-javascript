@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1 id="test" class="text-center">Animaux</h1>
+
+    <form id="animal_add_form" class="p-4 border rounded bg-light">
+      <div>
+        <label for="nameInput" class="form-label">Name</label>
+        <input type="text" id="nameInput" name="name" class="form-control" />
+      </div>
+
+      <div>
+        <label for="descriptionInput" class="form-label">Descrption</label>
+        <input
+          type="text"
+          id="descriptionInput"
+          name="descriptionInput"
+          class="form-control"
+        />
+      </div>
+
+      <div>
+        <label for="categoryInput" class="form-label">Category</label>
+        <input
+          type="text"
+          id="categoryInput"
+          name="categoryInput"
+          class="form-control"
+        />
+      </div>
+    </form>
+
+    <h2>Filtres</h2>
+    <select id="animalFilter">
+      <option value="terrestre"></option>
+      <option value="aquatique"></option>
+      <option value="volant"></option>
+    </select>
+
+    <div id="main" class="d-flex flex-wrap gap-1 justify-content-evenly">
+      <div></div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
