@@ -1,5 +1,5 @@
 
-let animal = [
+let animals = [
     {
         name: 'Lion',
         description: "'Un grand félin carnivore, surnommé le 'roi de la jungle'",
@@ -26,14 +26,49 @@ let animal = [
     }
 ];
 
-console.log("animmals");
-
-const mainDiv = document.getElementById('main'); 
-
-rendersAnimals(animals);
-
+const mainDiv = document.getElementById('main');
 const animalAddForm = document.getElementById('animal_add_form');
-//console.log(animalForm);
+const nameInput = document.getElementById('nameInput');
+const descriptionInput = document.getElementById('descriptionInput');
+const categoryInput = document.getElementById('categoryInput');
+const imageUrlInput = document.getElementById('imageUrlInput');
+const errorDisplay = document.getElementById('errors');
+const animalFilter = document.getElementById('animalFilter');
+
+//console.log("animmals");
+
+function displayAnimals(animalsArray) {
+mainDiv
+for ( let animal of animalsArray) {
+        const animalDiv = document.createElement('div');
+        animalDiv.className = 'col-3 border p-2';
+
+        const animalName = document.createElement('h2');
+        animalName.innerText = `${animal.name}`;
+
+        const animalDescription = document.createElement('p');
+        animalDescription.innerText = `${animal.description}`;
+
+        const animalCategory = document.createElement('p');
+        animalCategory.innerText = `${animal.category}`;
+
+        const animalImg = document. createElement('img');
+        animalImg.src = animal.image;
+        animalImg.alt = animal.name;
+        animalImg.style.width = '100%';
+        animalImg.style.height = 'auto';
+
+        animalDiv.appendChild(animalName);
+        animalDiv.appendChild(animalDescription);
+        animalDiv.appendChild(animalCategory);
+        animalDiv.appendChild(animalImg);
+
+        mainDiv.appendChild(animalDiv);
+    }
+}
+
+displayAnimals(animals);
+
 
 animalAddForm.addEventListener('submit', function(e){
     e.preventDefault();
@@ -63,16 +98,16 @@ animalAddForm.addEventListener('submit', function(e){
     if (errorDisplay) {
         errorDisplay.innerHTML = ''; 
         
-        let newAnimal = {
+    const newAnimal = {
             name: nameInput.value,
-            descrption: descriptionInput.value,
+            description: descriptionInput.value,
             category: categoryInput.value,
             image: ''
         };
 
         animals.push(newAnimal);
         console.log('Form validé', animals);
-        rederAnimals(animals);
+        displayAnimals(animals);
         } else {
             document.getElementById('errors').innerHTML + errors.reduce(
                  (a, c) => c + ' ' + a
@@ -80,51 +115,15 @@ animalAddForm.addEventListener('submit', function(e){
         }
     }
 
-
-
 });
-const nameInput = document.getElementById('nameInput'); 
-const descriptionInput = document.getElementById('descriptionInput');
-const categoryInput = document.getElementById('categoryInput'); 
-const imageUrlInput = document.getElementById('imageUrlInput');
-const animalFilter = document.getElementById('animalFilter'); 
-const errorDisplay = document.getElementById('errors');
 
-
-// Fonctions display ANIMALS
-
-/**
- * Affiche les animaux dans la div #main.
- * @param {Array<Animal>} animalsArray - Le tableau d'objets Animal à afficher.
- */
-function displayAnimals(animalsArray) {
-    mainDiv.innerHTML = '';
-
-    for ( let animal of animalsArray) {
-        let animalDiv = document.createElement('div');
-        animalDiv.className = 'col-3 border p-2';
-
-        let animalName = document.createElement('h2');
-        animalName.innerText = `${animal.name}`;
-
-        let animalDescription = document.createElement('p');
-        animalDescription.innerText = `${animal.description}`;
-
-        let animalCategory = document.createElement('p');
-        animalCategory.innerText = `${animal.category}`;
-
-        let animalImg = document. createElement('img');
-        animal.src = animal.image;
-        animal.alt = animal.name;
-        animalImg.style.width = '100%';
-        animalImg.style.height = 'auto';
-
-        animalDiv.appendChild(animalName);
-        animalDiv.appendChild(animalDescription);
-        animmalDiv.appendChild(animalCategory);
-        animmalDiv.appendChild(animalImg);
-
-        mainDiv.appendChild(animalDiv);
+animalFilter.addEventListener('change', () => {
+    const selected = animalFilter.value;
+    if (selected) {
+        const filtered = animal.filter(animal => animal.category === selected);
+      displayAnimals(filtered);
+    } else {
+        displayAnimals(animals);
     }
+});
   
-}
