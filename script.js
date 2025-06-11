@@ -53,23 +53,31 @@ function displayAnimals(animalsArray) {
     mainDiv.innerHTML = '';
 
     for ( let animal of animalsArray) {
+            const card = document.createElement('div');
+            card.className = 'bg-white rounded-lg shadow-md overflow-hidden flex flex-col';
+
             const animalDiv = document.createElement('div');
             animalDiv.className = 'col-3 border p-2';
 
             const animalName = document.createElement('h2');
+            animalName.className = 'text-xl font-semibold mb-2';
             animalName.innerText = `${animal.name}`;
 
             const animalDescription = document.createElement('p');
+            animalDescription.className = 'text-gray-700 flex-grow';
             animalDescription.innerText = `${animal.description}`;
 
             const animalCategory = document.createElement('p');
+            animalCategory.className = 'text-sm text-gray-500 italic mt-4';
             animalCategory.innerText = `${animal.category}`;
 
             const animalImg = document. createElement('img');
             animalImg.src = animal.image;
             animalImg.alt = animal.name;
-            animalImg.style.width = '100%';
-            animalImg.style.height = 'auto';
+            animalImg.className = 'w-full h-full object-cover'
+
+            const cardBody = document.createElement('h3');
+            cardBody.className = 'p-4 flex flex-col flex-grow';
 
             animalDiv.appendChild(animalName);
             animalDiv.appendChild(animalDescription);
