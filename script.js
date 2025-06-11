@@ -10,7 +10,7 @@ let animals = [
         name: 'Dauphin',
         description: 'Un mammifère marin très intelligent et social.',
         category: 'aquatique',
-        image : 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Spinner_dolphin_at_Sataya.jpg/1280px-Spinner_dolphin_at_Sataya.jpg',
+        image : 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Tursiops_truncatus_01.jpg/500px-Tursiops_truncatus_01.jpg',
     },
     {
         name: 'Aigle',
@@ -19,11 +19,23 @@ let animals = [
         image : 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Bald_Eagle_%28Haliaeetus_leucocephalus%29_Kachemak_Bay%2C_Alaska.jpg/500px-Bald_Eagle_%28Haliaeetus_leucocephalus%29_Kachemak_Bay%2C_Alaska.jpg',
     },
     {
-        name: '',
-        description: '',
-        category: '',
-        image : '',
-    }
+        name: 'Girafe',
+        description: "La Girafe (Giraffa camelopardalis) est une espèce de mammifères ongulés artiodactyles, du groupe des ruminants, vivant dans les savanes africaines et répandue du Tchad jusqu'en Afrique du Sud.",
+        category: 'terrestre',
+        image : 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Giraffa_camelopardalis_angolensis.jpg/500px-Giraffa_camelopardalis_angolensis.jpg',
+    },
+    {
+        name: 'Baleine',
+        description: "Les baleines sont connues pour leur taille impressionnante. Parmi elles, la baleine bleue ou rorqual bleu est le plus grand animal vivant sur Terre. ",
+        category: 'aquatique',
+        image : 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Eubalaena_glacialis_with_calf.jpg/500px-Eubalaena_glacialis_with_calf.jpg',
+    },
+    {
+        name: 'Chauve-souris',
+        description: "Les chauves-souris font partie de l’ordre des chiroptères. Trop souvent victimes de fausses croyances, les chauves-souris sont jugées et chassées.",
+        category: 'volant',
+        image : 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Wikipedia-Bats-001-v01.jpg/500px-Wikipedia-Bats-001-v01.jpg',
+    },
 ];
 
 const mainDiv = document.getElementById('main');
@@ -33,52 +45,53 @@ const descriptionInput = document.getElementById('descriptionInput');
 const categoryInput = document.getElementById('categoryInput');
 const imageUrlInput = document.getElementById('imageUrlInput');
 const errorDisplay = document.getElementById('errors');
-const animalFilter = document.getElementById('animalFilter');
+
 
 //console.log("animmals");
 
 function displayAnimals(animalsArray) {
-mainDiv
-for ( let animal of animalsArray) {
-        const animalDiv = document.createElement('div');
-        animalDiv.className = 'col-3 border p-2';
+    mainDiv.innerHTML = '';
 
-        const animalName = document.createElement('h2');
-        animalName.innerText = `${animal.name}`;
+    for ( let animal of animalsArray) {
+            const animalDiv = document.createElement('div');
+            animalDiv.className = 'col-3 border p-2';
 
-        const animalDescription = document.createElement('p');
-        animalDescription.innerText = `${animal.description}`;
+            const animalName = document.createElement('h2');
+            animalName.innerText = `${animal.name}`;
 
-        const animalCategory = document.createElement('p');
-        animalCategory.innerText = `${animal.category}`;
+            const animalDescription = document.createElement('p');
+            animalDescription.innerText = `${animal.description}`;
 
-        const animalImg = document. createElement('img');
-        animalImg.src = animal.image;
-        animalImg.alt = animal.name;
-        animalImg.style.width = '100%';
-        animalImg.style.height = 'auto';
+            const animalCategory = document.createElement('p');
+            animalCategory.innerText = `${animal.category}`;
 
-        animalDiv.appendChild(animalName);
-        animalDiv.appendChild(animalDescription);
-        animalDiv.appendChild(animalCategory);
-        animalDiv.appendChild(animalImg);
+            const animalImg = document. createElement('img');
+            animalImg.src = animal.image;
+            animalImg.alt = animal.name;
+            animalImg.style.width = '100%';
+            animalImg.style.height = 'auto';
 
-        mainDiv.appendChild(animalDiv);
-    }
+            animalDiv.appendChild(animalName);
+            animalDiv.appendChild(animalDescription);
+            animalDiv.appendChild(animalCategory);
+            animalDiv.appendChild(animalImg);
+
+            mainDiv.appendChild(animalDiv);
+        }
 }
 
 displayAnimals(animals);
 
-
+//Formulaire
 animalAddForm.addEventListener('submit', function(e){
     e.preventDefault();
 
-    let nameInput = document.getElementById('nameInput');
-    let descriptionInput = document.getElementById('descriptionInput');
-    let categoryInput = document.getElementById('categoryInput');
-    let imageUrlInput = document.getElementById('imageUrlInput');
+    //let nameInput = document.getElementById('nameInput');
+    // let descriptionInput = document.getElementById('descriptionInput');
+    // let categoryInput = document.getElementById('categoryInput');
+    // let imageUrlInput = document.getElementById('imageUrlInput');
 
-    let errors = [];
+    const errors = [];
 
     //console.log()
 
@@ -94,36 +107,41 @@ animalAddForm.addEventListener('submit', function(e){
         errors.push('Category cannot be empty');
     }
 
-     if (errors.length === 0) {
-    if (errorDisplay) {
-        errorDisplay.innerHTML = ''; 
-        
+    
+    if (errors.length === 0) {
+    errorDisplay.innerHTML = ''; 
+
     const newAnimal = {
-            name: nameInput.value,
-            description: descriptionInput.value,
-            category: categoryInput.value,
-            image: ''
-        };
+        name: nameInput.value,
+        description: descriptionInput.value,
+        category: categoryInput.value,
+        image: imageUrlInput.value.trim()
+    };
 
-        animals.push(newAnimal);
-        console.log('Form validé', animals);
-        displayAnimals(animals);
-        } else {
-            document.getElementById('errors').innerHTML + errors.reduce(
-                 (a, c) => c + ' ' + a
-            )
-        }
-    }
-
-});
-
-animalFilter.addEventListener('change', () => {
-    const selected = animalFilter.value;
-    if (selected) {
-        const filtered = animal.filter(animal => animal.category === selected);
-      displayAnimals(filtered);
+    animals.push(newAnimal);
+    displayAnimals(animals);
     } else {
-        displayAnimals(animals);
+    errorDisplay.innerHTML = errors.join('<br>');
     }
 });
+
+
+//Filtre
+const animalFilter = document.getElementById('animalFilter');
+
+animalFilter.addEventListener('change', function(e) {
+    console.log(animalFilter.value);
+
+    const selectedCategory = animalFilter.value;
+
+    if (selectedCategory === '') {
+        displayAnimals(animals);
+    } else {
+        const filtered = animals.filter(animal => animal.category === selectedCategory);
+        displayAnimals(filtered);
+    }
+});
+
+
+
   
